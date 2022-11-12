@@ -1,0 +1,137 @@
+@startuml
+
+
+hide circle
+skinparam linetype ortho
+
+
+caption Mentor Matcher Class Diagram
+
+
+class "Person" as person {
+-personID : Integer <<unique>>
+-email : String <<unique>>
+-password : String
+-firstName : String
+-lastName : String
+-phone : String
+-mobile : String
+-industry : String
+-bio : String
+-undergradCourse : String
+-undergradInstitution : String
+-country : String
+-city : String
+-active : Boolean
+-findOut : String
+-role : String
+-notes : String
+-profilePhoto : Blob
+--
++registerMentor (mentor : Mentor) : void
++registerMentee (mentee : Mentee) : void
++deletePerson(personID)
++updatePerson(personID)
+}
+
+
+class "Mentee" as mentee {
+-menteeID : Integer <<unique>>
+-studyYear : Year
+-motivation : String
+-interests : String
+-randomMatch : Boolean
+--
++getMentee(menteeID)
++setMentee(menteeID)
++updateMentee(menteeID)
+}
+
+
+class "Mentor" as mentor {
+-mentorID : Integer <<unique>>
+-careerHistory : String
+-preferredCommunication : String
+-mentoringPreference : String
+-linkedIn : String
+-capacity : Integer
+--
++getMentor(mentorID)
++setMentor(mentorID)
++updateMentor(mentorID)
+}
+
+
+class "Match" as match {
+-matchID : Integer <<unique>>
+-approved : Boolean
+-matchDate : LocalDate
+--
++getMatchByMentorId(mentorID)
++getMatch(matchID)
++deleteMatch(matchID)
+}
+
+class "Meeting" as meeting {
+-meetingID : Integer <<unique>>
+-meetingTime: LocalDateTime
+-inPerson : Boolean
+-notes : String
+--
++scheduleMeeting(toDate : LocalDateTime)
++getMeetingByMatch(menteeID)
++getMeeting(meetingID)
++cancelMeeting(meetingID)
+}
+
+class "Undergraduate Experience" as undergrad {
+-undergradExperienceID : Integer <<unique>>
+-undergradYear : Year
+-undergradCourse : String
+-undergradMajor : String
+-undergradInstitution : String
+--
++getUndergradExperience(personID)
++updateUndergradExperience(personID)
+}
+
+class "Postgraduate Experience" as postgrad {
+-postgradExperienceID : Integer <<unique>>
+-postgradYear : Year
+-postgradCourse : String
+-posrgradMajor : String
+-postgradInstitution : String
+--
++getPostgradExperience(personID)
++updatePostgradExperience(personID)
+}
+
+
+class "Feedback" as feedback {
+-feedbackID : Integer <<unique>>
+-feedbackDate : LocalDate
+-feedbackRating :  Integer
+-feedbackComments : String
+--
++submitFeedback(personID)
++updateFeedback(personID)
++getFeedback(personID)
+}
+
+
+
+
+'relationships
+mentee --> person
+mentor --> person
+match "matches\n**0..1**" o--> "mentees\n**1**" mentee
+mentor "mentors\n**0..1**" --left- "mentees\n**0..<capacity>**" mentee
+match "matches\n**0..***" o-->   "mentors\n**1**" mentor
+match "matches\n**1**" --> "meetings\n**0..***" meeting
+feedback "feedback\n**0..***" -up--> "person\n**1**" person
+postgrad "postgrad \nexperiences\n**0..***" ---right--> "person\n**1**" person
+undergrad "undergrad \nexperiences\n**0..***" ---left--> "person\n**1**" person
+
+
+
+@enduml

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+<html>
+    <head>
+        <title>View Mentor</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>  
+            <navigation></navigation>
+            <div class='account'>
+                <img v-bind:src="selectedMentor.person.profilePhoto" class="photoPreview"><br>
+                <h3 class="lables">Name: </h3><h4 class="content">{{selectedMentor.person.firstName}} {{selectedMentor.person.lastName}}</h4><br>
+                <h3 class="lables">Mentoring areas</h3><h4 class="content" v-for="preference in selectedMentor.mentoringPreference">{{preference}}</h4>
+                <h1> Communication </h1>
+                <h3 class="lables">Preferred Communication</h3><h4 class="content">{{selectedMentor.preferredCommunication}}</h4><br>
+                <h3 class="lables">Phone</h3><h4 class="content">{{selectedMentor.person.phone}}</h4><br>
+                <h3 class="lables">Email</h3><h4 class="content">{{selectedMentor.person.email}}</h4><br>
+                <h3 class="lables" v-if='selectedMentor.linkedIn != null'>LinkedIn</h3><h4 class="content">{{selectedMentor.linkedIn}}</h4><br>
+
+
+                <button id="bio" onclick="display('bioModal')" class='extensionButton'>BIO</button>
+                <button id="interests" onclick="display('interestsModal')" class='extensionButton'>Interests</button>
+                <button id="skills" onclick="display('skillsModal')" class='extensionButton'>Skills</button><br>
+                <button id="undergrad" onclick="display('undergradModal')" v-if="undergrads.length > 0" class='extensionButton'>Undergraduate Qualifications</button><br>
+                <button id="postgrad" onclick="display('postgradModal')" v-if="postgrads.length > 0" class='extensionButton'>Postgraduate Qualifications</button><br>
+                <button id="work" onclick="display('workModal')" v-if="workExperiences.length > 0" class='extensionButton'>Work Experience</button><br><br>
+
+                <div id="bioModal" class="modal">
+                    <div class="modal-content">
+                        <button class="close" onclick="modal.style.display = 'none';">&times;</button>
+                        <h3>BIO</h3>
+                        <p>{{selectedMentor.person.bio}}</p>
+                    </div>
+                </div>
+
+                <div id="interestsModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <button class="close" onclick="modal.style.display = 'none';">&times;</button>
+                        <h3>Interests</h3>
+                        <p v-for="interest in selectedMentor.person.interests">{{interest}}</p>
+                    </div>
+                </div> 
+
+                <div id="skillsModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <button class="close" onclick="modal.style.display = 'none';">&times;</button>
+                        <h3>Skills</h3>
+                        <p v-for="skill in selectedMentor.person.skills">{{skill}}</p>
+                    </div>
+                </div>
+
+                <div id="undergradModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <button class="close" onclick="modal.style.display = 'none';">&times;</button>
+                        <h3>Undergraduate Qualifications</h3>
+                        <p v-for="undergrad in undergrads">{{undergrad.undergradCourse}} in {{undergrad.undergradMajor}} from {{undergrad.undergradInstitution}} ({{undergrad.undergradYear}})</p>
+                    </div>
+                </div>
+
+                <div id="postgradModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <button class="close" onclick="modal.style.display = 'none';">&times;</button>
+                        <h3>Postgraduate Qualifications</h3>
+                        <p v-for="postgrad in postgrads">{{postgrad.postgradCourse}} in {{postgrad.postgradMajor}} from {{postgrad.postgradInstitution}} ({{postgrad.postgradYear}})</p>
+                    </div>
+                </div>
+
+                <div id="workModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <button class="close" onclick="modal.style.display = 'none';">&times;</button>
+                        <h3>Work Experience</h3>
+                        <p v-for="work in workExperiences">{{work.industry}}: {{work.title}} at {{work.organisation}} ({{work.startDate}} - {{work.endDate}})</p>
+                    </div>
+                </div>
+            
+                <button type="submit" v-on:click.prevent="registerApplication()" class="button">Match</button>
+            </div>
+        </main>
+        <script type="module" src="js/mentor.js"></script>
+        <script>
+            var modal;
+           
+            function display(x){
+                modal = document.getElementById(x);
+                modal.style.display = "block";
+            };
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+              }
+            };
+        </script>
+        <iframe src="footer.html" onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+    </body>
+</html>

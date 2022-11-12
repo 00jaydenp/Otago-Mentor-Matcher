@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+<!-- Student/Mentee-specific registration page that collects data for the Mentee table -->
+<html class='register_html'>
+    <head>
+        <title>Mentee Registration</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <section>
+                <div class='registerContainer'>
+                    <div class="pageHeader">
+                        <h1>Student Registration</h1>
+                    </div>
+
+                    <div class='registerBox'>
+                        <div class='registerFormContainer'>
+
+                            <form @submit.prevent="registerMentee()">
+
+                                <div class='registerForm'>
+
+                                    <h2>About You</h2>
+
+                                    <h4>Which industry are you interested in? Select all that apply</h4>
+
+                                    <div class='registerInputTable registerButtonContainer industryTable'>
+
+                                        <table>
+                                            <tr>
+                                                <td><input type="checkbox" id="accounting" value="Accounting"></td><td class="test"><label for="accounting">Accounting</label></td><td></td>
+                                                <td><input type="checkbox" id="legal" value="Legal Services"></td><td class="test"><label for="legal">Legal Services</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="agriculture" value="Agriculture/Horticulture/Viticulture"></td><td class="test"><label for="agriculture">Agriculture/Horticulture/Viticulture</label></td><td></td>
+                                                <td><input type="checkbox" id="local" value="Local Government"></td><td class="test"><label for="local">Local Government</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="computing" value="Computing/IT/Communications"></td><td class="test"><label for="computing">Computing/IT/Communications</label></td><td></td>
+                                                <td><input type="checkbox" id="management" value="Management and Consulting"></td><td class="test"><label for="management">Management and Consulting</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="cultural" value="Cultural/Sport and Recreational Services"></td><td class="test"><label for="cultural">Cultural/Sport and Recreational Services</label></td><td></td>
+                                                <td><input type="checkbox" id="manufacturing" value="Manufacturing"></td><td class="test"><label for="manufacturing">Manufacturing</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="education" value="Education"></td><td class="test"><label for="education">Education</label></td><td></td>
+                                                <td><input type="checkbox" id="marketing" value="Marketing"></td><td class="test"><label for="marketing">Marketing</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="electricity" value="Electricity/Gas and Water Supply"></td><td class="test"><label for="electricity">Electricity/Gas and Water Supply</label></td><td></td>
+                                                <td><input type="checkbox" id="environmental" value="Environmental"></td><td class="test"><label for="environmental">Environmental</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="mining" value="Mining and Construction"></td><td class="test"><label for="mining">Mining and Construction</label> </td><td></td>
+                                                <td><input type="checkbox" id="media" value="Media/Publishing and Entertainment"></td><td class="test"><label for="media">Media/Publishing and Entertainment</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="finance" value="Finance and Insurance"></td><td class="test"><label for="finance">Finance and Insurance</label></td><td></td>
+                                                <td><input type="checkbox" id="visual" value="Visual Arts and Design"></td><td class="test"><label for="visual">Visual Arts and Design</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="government" value="Government and Defence"></td><td class="test"><label for="government">Government and Defense</label></td><td></td>
+                                                <td><input type="checkbox" id="wholesale" value="Wholesale Trade"></td><td class="test"><label for="wholesale">Wholesale Trade</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="health" value="Health and Community Services"></td><td class="test"><label for="health">Health and Community Services</label></td><td></td>
+                                                <td><input type="checkbox" id="retail" value="Retail"></td><td class="test"><label for="retail">Retail</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="hospitality" value="Hospitality and Tourism"></td><td class="test"><label for="hospitality">Hospitality and Tourism</label></td><td></td>
+                                                <td><input type="checkbox" id="other" value="Other"></td><td class="test"><label for="other">Other</label></td><td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div id="studyYear" class='registerPhotoContainer'>
+                                        <h4>Please select your current year of study:</h4>
+                                        
+                                        <div class="yearSelector">
+                                            <label for="studyYear">Current year of study: </label>
+                                            <select id="studyYear" v-model="mentee.studyYear">
+                                                <option></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <h4>What motivated you to join the Mentor match program?</h4>
+                                    <textarea style="resize: none;" v-model="mentee.motivation"></textarea>
+
+                                    <h4>Are you willing to be matched with a mentor with similar career goals/interests to you by the admin team if you do not request a match yourself?</h4>
+                                    <div class='registerInputTable registerButtonContainer'>
+                                        <table>
+                                            <tr>
+                                                <td><input id="randomMatch" type="checkbox" v-model="mentee.randomMatch"></td><td><label for="randomMatch">Yes</label></td>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br>
+                                <div><button class='button' type="submit">Next</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--standard footer-->
+                <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+
+            </section>
+        </main>
+        <script type="module" src="js/mentee.js"></script>
+    </body>
+</html>
+

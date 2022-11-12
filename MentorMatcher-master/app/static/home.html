@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+
+<!-- A public-facing 'home' page to provide general information about the Otago Mentor Match programme -->
+<html>
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <!-- Adds the nav bar to the top of the page -->
+            <navigation></navigation>
+
+            <section>
+                <div class='container'>
+                    <div class='subContainer'>
+                        <h1 class='headerResize'>Otago Mentor Match programme</h1>
+                        <p>The Otago Mentor Match programme connects Otago students with experienced industry professionals – our alumni.
+                            Linked by common experiences, our alumni present an amazing resource to our current students. 
+                            Otago Mentor Match pairings help students find out what it takes to succeed in their future careers and provides a platform for alumni mentors to share their invaluable knowledge in areas such as:
+                        </p>
+                        <ul>
+                            <li>Advice</li>
+                            <li>Career development</li>
+                            <li>Goal setting</li>
+                            <li>Job strategy (how to stand out as a candidate)</li>
+                            <li>Motivation</li>
+                            <li>Networking</li>
+                            <li>Resume / cover letters</li>
+                            <li>Time management</li>
+                            <li>Work / life balance</li>
+                        </ul>
+                        
+                        <div>
+                            <img src='home_image.png' alt='Otago University Students' class='homeImage'>
+                        </div>
+
+                        <h2 class='homeSubHeading'>How it works</h2>
+                        <p>
+                            The matching process begins when Otago alumni volunteers (mentors) and students (mentees) each register to participate in the programme. 
+                            They provide details like their credentials, preferences, and areas of interest. <br><br>
+                            Registered students can then search through the list of available mentors and request to be matched with one of them. One of the programme administrators will then approve the match request before the student and mentor can make contact.
+                            Once matched, a mentor and mentee can contact each other and organize either in-person or online meetings through the website. Most correspondence is through email or phone, with lengthier interactions over applications like Skype or Zoom. If mentors are in Dunedin, there may be an opportunity to meet face to face.<br><br>
+                            What you’ll talk about during your match meetings is up to you, but <a href='https://www.otago.ac.nz/careers/skills/mentor/otago718734.html' class='whiteBackground'>click here</a> for some helpful tips to help guide you through each discussion and make the most of your mentoring experience.
+                        </p>
+
+                        <h2 class='homeSubHeading'>Testimonial</h2>
+                        <div class='quote'>
+                            <p>
+                                "I think mentoring works best when you let the mentee guide the direction of conversations. But mentoring also provides a challenge to mentors to think about issues in a way they may not have previously and to understand the issues that are front of mind for future graduates. This provides a unique insight into the future workforce."
+                            </p>
+                            <p class='boldText'>
+                                - Monique Esplin
+                            </p>
+                        </div>
+                        
+                        <div v-if="personUser == null">
+                            <h2 class='homeSubHeading'>Join the Programme</h2>
+                            <p>Want to join the Otago Mentor Match programme as a student or mentor? Use the button below to sign up:</p>
+
+                            <a href='/register.html'><button class='button registerButton'>Create an account</button></a>
+
+                            <p>Already have an account? Click <a href='index.html' class='whiteBackground'>here</a> to log in.</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                
+                <!--Generic footer-->
+                <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+            </section>
+        </main>
+        <script type="module" src="js/home.js"></script>
+    </body>
+</html>

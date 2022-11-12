@@ -1,0 +1,29 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+'actors
+actor mentor
+actor user
+
+'actor relationships 
+user --|> mentor
+
+
+'use case relationships 
+rectangle OtagoMentorMatcherWebsite {
+  mentor -- (accept/decline match requests)
+  mentor -- (log in)
+  mentor -- (edit profile)
+ 
+  (accept/decline match requests) .> (match with mentee) : <<include>>
+  (match with mentee) ..> (message match) : <<include>>
+  (match with mentee) ..> (place feedback\non mentee) : <<include>>
+  (match with mentee) ..> (book meeting) : <<include>>
+  (log in) ..> (authenticate user) : <<require>>
+
+
+}
+
+@enduml

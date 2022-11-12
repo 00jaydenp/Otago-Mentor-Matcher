@@ -1,0 +1,1240 @@
+openapi: 3.0.0
+x-stoplight:
+  id: vu15gogjbbict
+info:
+  title: INFO301
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8072/api'
+paths:
+  '/login/{person_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: person_ID
+        in: path
+        required: true
+    get:
+      summary: Get User by Email
+      tags:
+        - Login
+      responses:
+        '404':
+          description: Not Found - No User with that email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+      operationId: get-login-email
+      description: Gets the Login by the users email
+    delete:
+      summary: Delete User by Email
+      operationId: delete-login-email
+      responses:
+        '204':
+          description: User Successfully Deleted
+        '404':
+          description: Not Found - No User with that email
+      tags:
+        - Login
+      description: Deletes a Login with the users email
+    put:
+      summary: Update User by Email
+      operationId: put-login-email
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found - No User with that email
+        '409':
+          description: User <b>NOT</b> updated - you may <b>NOT</b> change the User's Email
+      description: Updates data for the user via their email
+      tags:
+        - Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+  /register/mentor:
+    post:
+      summary: Register Mentor
+      operationId: post-register
+      responses:
+        '201':
+          description: Mentor Created
+      description: Posts a Mentor to the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mentor'
+        description: ''
+      tags:
+        - Register
+    parameters: []
+  /register/mentee:
+    post:
+      summary: Register Mentee
+      operationId: post-register
+      responses:
+        '201':
+          description: Mentee Created
+      description: Posts a mentee to the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mentee'
+      tags:
+        - Register
+    parameters: []
+  /user:
+    get:
+      summary: Get all Users
+      tags:
+        - Login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+      operationId: get-user
+      description: Get All the systems Users
+    post:
+      summary: Register User
+      operationId: post-user
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: User <b>NOT</b> created - there is already a user with that email
+      description: Registers a User to the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      tags:
+        - Register
+  /mentors:
+    get:
+      summary: Get all Mentors
+      tags:
+        - Mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mentor'
+      operationId: get-mentor
+      description: Get all of the mentors in the system
+    parameters: []
+  '/person/mentor/{person_ID}':
+    get:
+      summary: Get all Mentor by person ID
+      tags:
+        - Mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentor'
+      operationId: get-mentor
+      description: Get all of the mentors in the system
+    parameters:
+      - schema:
+          type: string
+        name: person_ID
+        in: path
+        required: true
+  '/mentors/{mentor_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: mentor_ID
+        in: path
+        required: true
+    get:
+      summary: Get Mentor
+      tags:
+        - Mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentor'
+        '404':
+          description: Not Found - No Mentor with that ID
+      operationId: get-mentor-mentorID
+      description: Get a Mentor via their mentorID
+    put:
+      summary: Update Mentor
+      operationId: put-mentor-mentorID
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found - No Mentor with that ID
+        '409':
+          description: Mentor <b>NOT</b> updated - You may <b>NOT</b> change the mentorID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mentor'
+      description: Updates A mentor via their mentorID
+      tags:
+        - Mentor
+    delete:
+      summary: Delete Mentor
+      operationId: delete-mentor-mentorID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found - No Mentor with that ID
+      description: Deletes a Mentor via their mentorID
+      tags:
+        - Mentor
+  /mentees:
+    get:
+      summary: Get all Mentees
+      tags:
+        - Mentee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mentee'
+      operationId: get-mentee
+      description: Get all the systems mentees
+    parameters: []
+  '/person/mentee/{person_ID}':
+    get:
+      summary: Get all Mentee by person ID
+      tags:
+        - Mentee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentor'
+        '':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentee'
+      operationId: get-mentor
+      description: Get all of the mentors in the system
+    parameters:
+      - schema:
+          type: string
+        name: person_ID
+        in: path
+        required: true
+  '/mentees/{mentee_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: mentee_ID
+        in: path
+        required: true
+    get:
+      summary: Get Mentee
+      tags:
+        - Mentee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentee'
+        '404':
+          description: Not Found - No Mentee with that ID
+      operationId: get-mentee-menteeID
+      description: Get mentee via menteeID
+    put:
+      summary: Update Mentee
+      operationId: put-mentee-menteeID
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+        '409':
+          description: Mentee <b>Not</b> updated - you may <b>NOT</b> change the menteeID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mentee'
+      description: Update mentee vie menteeID
+      tags:
+        - Mentee
+    delete:
+      summary: Delete Mentee
+      operationId: delete-mentee-menteeID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found - No Mentee with that ID
+      description: Delete mentee via menteeID
+      tags:
+        - Mentee
+  /match:
+    get:
+      summary: Get All Matches
+      tags:
+        - Match
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+      operationId: get-match
+      description: Get all matches in the system
+    post:
+      summary: Post Match
+      operationId: post-match
+      responses:
+        '201':
+          description: Match Created
+      description: Posts a match to the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Match'
+      tags:
+        - Match
+  '/match/{match_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: match_ID
+        in: path
+        required: true
+    get:
+      summary: Get Match by Match ID
+      tags:
+        - Match
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+        '404':
+          description: Not Found - No Match with that ID
+      operationId: get-match-matchID
+      description: Get match via the matchID
+    delete:
+      summary: Delete Match
+      operationId: delete-match-matchID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found - No Match with that ID
+      description: Delete a match via the matchID
+      tags:
+        - Match
+    put:
+      summary: Update Match
+      operationId: put-match-matchID
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found - No Match with that ID
+        '409':
+          description: Match <b>NOT</b> updated - you may <b>NOT</b> change the matchID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Match'
+        description: ''
+      description: Update match via the matchID
+      tags:
+        - Match
+  '/mentor/match/{mentor_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: mentor_ID
+        in: path
+        required: true
+    get:
+      summary: Get all Matches by MentorID
+      tags:
+        - Match
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+        '404':
+          description: Not Found - No Match with that mentorID
+      operationId: get-mentor-match-mentorID
+      description: Get all matches via the mentorID
+  '/mentee/match/{mentee_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: mentee_ID
+        in: path
+        required: true
+    get:
+      summary: Get matches by mentee ID
+      tags:
+        - Match
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+        '404':
+          description: Not Found - No Match with that menteeID
+      operationId: get-mentee-match-mentee_ID
+      description: get all the matches for a mentee
+  /meeting:
+    get:
+      summary: Get All meetings
+      tags:
+        - Meeting
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meeting'
+      operationId: get-meeting
+      description: Get all the meetings in the system
+    post:
+      summary: Add Meeting
+      operationId: post-meeting
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+      description: Add meeting to the system
+      tags:
+        - Meeting
+  '/meeting/{meeting_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: meeting_ID
+        in: path
+        required: true
+    get:
+      summary: Get meeting by meeting ID
+      tags:
+        - Meeting
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting'
+        '404':
+          description: Not Found - No Meeting with that meeting_ID
+      operationId: get-meeting-meeting_ID
+      description: get a meeting by its meeting ID
+    put:
+      summary: Update Meeting
+      operationId: put-meeting-meeting_ID
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found - No Meeting with that meeting_ID
+        '409':
+          description: Meeting <b>NOT</b> updated - you may <b>NOT</b> change the meeting_ID
+      description: Update meeting by the meeting ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+      tags:
+        - Meeting
+    delete:
+      summary: Delete Meeting
+      operationId: delete-meeting-meeting_ID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found - No Meeting with that meeting_ID
+      description: Delete meeting by meeting ID
+      tags:
+        - Meeting
+  '/match/meeting/{match_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: match_ID
+        in: path
+        required: true
+    get:
+      summary: Get meetings by match ID
+      tags:
+        - Meeting
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meeting'
+        '404':
+          description: Not Found - No meetings with that match_ID
+      operationId: get-match-meeting-match_ID
+      description: Get all the meetings with a match ID
+  /feedback:
+    get:
+      summary: Get All feedback
+      tags:
+        - Feedback
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feedback'
+      operationId: get-feedback
+      description: Get all the feedback in the system
+    post:
+      summary: Add feedback
+      operationId: post-feedback
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Feedback <b>NOT</b> created - there is already feedback with that ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+      description: Add feedback to the system
+      tags:
+        - Feedback
+  '/feedback/{feedback_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: feedback_ID
+        in: path
+        required: true
+    get:
+      summary: Get Feedback by feedback ID
+      tags:
+        - Feedback
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feedback'
+        '404':
+          description: Not Found - No feedback with that feedback_ID
+      operationId: get-feedback-feedback_ID
+      description: Get the feedback by is ID
+    put:
+      summary: Update Feedback
+      operationId: put-feedback-feedback_ID
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found - No feedback with that feedback_ID
+        '409':
+          description: Feedback <b>NOT</b> updated - you may <b>NOT</b> change the feedback_ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+      description: Update feedback by feedback ID
+      tags:
+        - Feedback
+    delete:
+      summary: Delete Feedback
+      operationId: delete-feedback-feedback_ID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found - No feedback with that feedback_ID
+      description: Delete fee
+      tags:
+        - Feedback
+  '/user/feedback/{person_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: person_ID
+        in: path
+        required: true
+    get:
+      summary: Get Feedback By User
+      tags:
+        - Feedback
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feedback'
+        '404':
+          description: Not Found - No feedback with that user ID
+      operationId: get-feedback-person_ID
+      description: Get feedback by the userID
+  /postgraduate:
+    get:
+      summary: Get all Postgraduates
+      tags:
+        - Experience
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Postgraduate'
+      operationId: get-postgraduate
+      description: Get all the postgraduates
+    post:
+      summary: Add Postgraduate
+      operationId: post-postgraduate
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Postgrad <b>NOT</b> created - there is already a Postgraduate with that ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Postgraduate'
+      description: Add a postgraduate experience to the system
+      tags:
+        - Experience
+  '/postgraduate/{person_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: person_ID
+        in: path
+        required: true
+    get:
+      summary: Get Postgrad by Mentor ID
+      tags:
+        - Experience
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Postgraduate'
+        '404':
+          description: Not Found - No Postgrad experience with that Mentor
+      operationId: get-postgraduate-mentor_ID
+      description: Get Postgrad experience by mentor ID
+  /undergraduate:
+    get:
+      summary: Get all Undergraduates
+      tags:
+        - Experience
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Undergraduate'
+        '':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Undergraduate'
+          description: ''
+      operationId: get-undergraduate
+      description: Get all the undergraduates
+    post:
+      summary: Add undergraduate
+      operationId: post-undergraduate
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Undergrad <b>NOT</b> created - there is already a Undergraduate with that ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Undergraduate'
+      description: Add a undergraduate experience to the system
+      tags:
+        - Experience
+    parameters: []
+  '/undergraduate/{person_ID}':
+    parameters:
+      - schema:
+          type: string
+        name: person_ID
+        in: path
+        required: true
+    get:
+      summary: Get Postgrad by Mentor ID
+      tags:
+        - Experience
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Undergraduate'
+        '404':
+          description: Not Found - No Undergrad experience with that Person
+      operationId: get-postgraduate-mentor_ID
+      description: Get Postgrad experience by mentor ID
+  '/login/{email}/{password}':
+    parameters:
+      - schema:
+          type: string
+        name: email
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: password
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+      operationId: get-login-email-password
+  /undergradcourses:
+    get:
+      summary: Get Undergrad Course
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UndergradCourse'
+      operationId: get-undergradcourses
+      description: Get all undergrad courses
+    post:
+      summary: Add Undergrad Course
+      tags: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Undergrad Course <b>NOT</b> created - there is already a Undergraduate Course with that Name
+      operationId: post-undergradcourses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UndergradCourse'
+      description: Add new undergrad course
+  '/undergradcourses/{course}':
+    parameters:
+      - schema:
+          type: string
+        name: course
+        in: path
+        required: true
+    get:
+      summary: Get Undergrad Course by Name
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UndergradCourse'
+        '404':
+          description: Not Found - Undergrad Course with that name does not exist
+      operationId: get-undergrad-course
+      description: Get undergrad course by name.
+      tags:
+        - Courses
+    put:
+      summary: Update Undergrad Course
+      tags:
+        - Courses
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found - Undergrad course with that name was not found
+        '409':
+          description: Undergrad Course <b>NOT</b> updated - you may <b>NOT</b> change the course name
+      operationId: put-undergrad-course
+      description: Update Undergrad Course
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UndergradCourse'
+    delete:
+      summary: Delete Undergrad Course
+      tags: []
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found - Undergrad Course with that Name does not exist.
+      operationId: delete-undergrad-course
+      description: Delete undergrad course by name.
+  /postgradcourses:
+    get:
+      summary: Get All Postgrad Courses
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostgradCourse'
+      operationId: get-postgradcourses
+      description: Get all postgraduate courses.
+    post:
+      summary: Add new Postgrad Course
+      tags: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Postgrad Course <b>NOT</b> created - there is already a Postgrad Course with that Name
+      operationId: post-postgradcourses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostgradCourse'
+      description: Add new postgrad course
+  '/postgradcourses/{course}':
+    parameters:
+      - schema:
+          type: string
+        name: course
+        in: path
+        required: true
+    get:
+      summary: Get Postgrad Course by Name
+      tags:
+        - Courses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostgradCourse'
+        '404':
+          description: Not Found - Postgrad course with that name was not found.
+      operationId: get-postgrad-course
+      description: Get postgrad course by name
+    put:
+      summary: Update Postgrad Course
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found - Postgrad Course with that name was not found/
+        '409':
+          description: Postgrad Course <b>NOT</b> updated - you may <b>NOT</b> change the course name
+      operationId: put-postgrad-course
+      description: Update postgrad course.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostgradCourse'
+    delete:
+      summary: Delete Postgrad Course
+      tags: []
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found - Postgrad course with that name was not found.
+      operationId: delete-postgrad-course
+  /work:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Work'
+      operationId: get-work
+    post:
+      summary: ''
+      operationId: post-work
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Work'
+  '/work/{mentor_ID}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Work'
+        '404':
+          description: Not Found
+      operationId: get-work
+    parameters:
+      - schema:
+          type: string
+        name: mentor_ID
+        in: path
+        required: true
+components:
+  schemas:
+    Person:
+      title: Person
+      type: object
+      description: ''
+      x-examples: {}
+      properties:
+        personID:
+          type: number
+          description: Unique identifier for the given user.
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+        mobile:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+        bio:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        active:
+          type: boolean
+        findOut:
+          type: string
+        role:
+          type: string
+        notes:
+          type: string
+      required:
+        - personID
+        - email
+        - password
+        - firstName
+        - lastName
+        - role
+    Mentee:
+      title: Mentee
+      x-stoplight:
+        id: rsh3omozn17ui
+      type: object
+      properties:
+        menteeID:
+          type: number
+        studyYear:
+          type: number
+        motivation:
+          type: string
+        interests:
+          type: string
+        randomMatch:
+          type: boolean
+        person:
+          $ref: '#/components/schemas/Person'
+        mentor:
+          $ref: '#/components/schemas/Mentor'
+      required:
+        - menteeID
+        - studyYear
+        - motivation
+        - interests
+        - randomMatch
+        - person
+    Mentor:
+      title: Mentor
+      x-stoplight:
+        id: gbqkg1gm8g7m6
+      type: object
+      properties:
+        mentorID:
+          type: number
+        careerHistory:
+          type: string
+        preferredCommunication:
+          type: string
+        mentoringPreference:
+          type: string
+        linkedIn:
+          type: string
+        capacity:
+          type: integer
+        feedbackRating:
+          type: integer
+        feedbackComment:
+          type: string
+        person:
+          $ref: '#/components/schemas/Person'
+      required:
+        - mentorID
+        - careerHistory
+        - preferredCommunication
+        - mentoringPreference
+        - linkedIn
+        - capacity
+        - person
+    Match:
+      title: Match
+      x-stoplight:
+        id: tbk7y8ik5kbw9
+      type: object
+      properties:
+        matchID:
+          type: number
+        approved:
+          type: boolean
+        mentor:
+          $ref: '#/components/schemas/Mentor'
+        mentee:
+          $ref: '#/components/schemas/Mentee'
+    Meeting:
+      title: Meting
+      x-stoplight:
+        id: p7humpgbrrwry
+      type: object
+      properties:
+        meetingID:
+          type: number
+        meetingTime:
+          type: string
+        meetingLength:
+          type: string
+        inPerson:
+          type: boolean
+        notes:
+          type: string
+        match:
+          $ref: '#/components/schemas/Match'
+    Feedback:
+      title: Feedback
+      x-stoplight:
+        id: f9aaf1vqpnd7h
+      type: object
+      properties:
+        feedbackID:
+          type: number
+        feedbackDate:
+          type: string
+        feedbackRating:
+          type: number
+        feedbackComment:
+          type: string
+        person:
+          $ref: '#/components/schemas/Person'
+    Undergraduate:
+      title: Undergraduate
+      x-stoplight:
+        id: glodxa6cs4g7p
+      type: object
+      properties:
+        undergradExperienceID:
+          type: number
+        undergradMajor:
+          type: string
+        undergradCourse:
+          type: string
+        undergradInstitution:
+          type: string
+        undergradYear:
+          type: integer
+        person:
+          $ref: '#/components/schemas/Person'
+    Postgraduate:
+      title: Postgraduate
+      x-stoplight:
+        id: kxsy67fx84iec
+      type: object
+      properties:
+        postgradExperienceID:
+          type: number
+        postgradCourse:
+          type: string
+        postgradMajor:
+          type: string
+        postgradInstitution:
+          type: string
+        postgradYear:
+          type: number
+        person:
+          $ref: '#/components/schemas/Person'
+    PostgradCourse:
+      title: PostgradCourse
+      x-stoplight:
+        id: thi5j82tr2z7t
+      type: object
+      properties:
+        course:
+          type: string
+        majors:
+          type: array
+          items:
+            type: string
+    UndergradCourse:
+      title: UndergradCourse
+      x-stoplight:
+        id: 14vwxh58zkn73
+      type: object
+      properties:
+        course:
+          type: string
+        majors:
+          type: array
+          items:
+            type: string
+    Work:
+      title: Work
+      x-stoplight:
+        id: qcdtjgb25uk0s
+      type: object
+      properties:
+        workID:
+          type: number
+        title:
+          type: string
+        organization:
+          type: string
+        industry:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        mentor:
+          $ref: '#/components/schemas/Mentor'
+tags:
+  - name: Experience
+  - name: Feedback
+  - name: Login
+  - name: Match
+  - name: Meeting
+  - name: Mentee
+  - name: Mentor
+  - name: Register

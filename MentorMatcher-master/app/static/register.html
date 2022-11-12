@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+
+<!-- Generic registration page that collects data for the Person entity-->
+<html class='register_html'>
+    <head>
+        <title>Registration</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <section>
+                <div class='registerContainer'>
+                    <h1>Account Registration</h1>
+
+                    <div class='registerBox'>
+                        <div class='registerFormContainer'>
+                            <form>
+
+                                <h2>Account Details</h2>
+                                <h4>Enter your account information below:</h4>
+
+                                <div class="registerForm">
+                                    <div>
+                                        <div class="registerInput">
+                                            <label>First Name: </label><input type="text" v-model="person.firstName"placeholder="Enter your first name" required><br>
+                                        </div><div class="registerInput">
+                                            <label>Last name: </label><input type="text" v-model="person.lastName" placeholder="Enter your last name" required><br>
+                                        </div><div class="registerInput">
+                                            <label>Email: </label><input type="email" v-model="person.email" placeholder="Enter your email address" required><br>
+                                        </div><div class="registerInput">
+                                            <label>Phone Number: </label><input type="tel" v-model="person.phone" placeholder="Enter your home phone number" ><br>
+                                        </div><div class="registerInput">
+                                            <label>Mobile Number: </label><input type="tel" v-model="person.mobile" placeholder="Enter your mobile number"><br>
+                                        </div><div class="registerInput">
+                                            <label>Password: </label><input type="password" v-model="person.password" placeholder="Enter a password" required><br>
+                                        </div><div class="registerInput">
+                                            <label>Confirm Password: </label><input type="password" id="checkPassword" placeholder="Retype your password" required><br>
+                                        </div>
+                                    </div>
+
+                                    <h2>More Info</h2>
+
+                                    <h4>What Country and city are you currently located and/or working in? </h4>
+                                    <div class="registerInput">
+                                        <label>Country: </label><input v-model="person.country"><br>
+                                    </div><div class="registerInput">
+                                        <label class="cityLabel">City: </label><input v-model="person.city"><br>
+                                    </div>
+
+                                    <br>
+                                    <h4>Please provide a short bio about yourself.</h4>
+                                    <textarea style="resize: none;" v-model="person.bio"></textarea>
+
+                                    <div class='registerPhotoContainer'>
+                                        <div><h4>Please upload a profile photo.</h4>
+                                            <label class="photoUploadLabel">Photo: </label><input class='photoUpload' type="file" accept="image/*" ref="file" v-on:change.prevent="selectFile()"><br></div>
+                                        <img id="profile" class="photoPreview">
+                                    </div>
+
+                                    <br>
+                                    <h4>What are your Personal Interests?</h4>                            
+
+                                    <div class='registerInputTable registerButtonContainer'> 
+                                        <table>
+                                            <tr>
+                                                <td><input type="checkbox" id="skiing" value="Skiing" v-model="person.interests"></td><td><label>Skiing</label></td><td class="spacerColumn"></td>
+                                                <td><input type="checkbox" id="travel" value="Travel" v-model="person.interests"></td><td><label>Travel</label></td><td></td>
+
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="drawing" value="Drawing" v-model="person.interests"></td><td><label>Drawing</label></td><td></td>
+                                                <td><input type="checkbox" id="reading" value="Reading" v-model="person.interests"></td><td><label>Reading</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="mountaineering" value="Mountaineering" v-model="person.interests"></td><td><label>Mountaineering</label></td><td></td>
+                                                <td><input type="checkbox" id="baking" value="Baking" v-model="person.interests"></td><td><label>Baking</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="cooking" value="Cooking" v-model="person.interests"></td><td><label>Cooking</label></td><td></td>
+                                                <td><input type="checkbox" id="yoga" value="Yoga" v-model="person.interests"></td><td><label>Yoga</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="running" value="Running" v-model="person.interests"></td><td><label>Running</label></td><td></td>
+                                                <td><input type="checkbox" id="coffee" value="Coffee" v-model="person.interests"></td><td><label>Coffee</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="boating" value="Boating" v-model="person.interests"></td><td><label>Boating</label></td><td></td>
+                                                <td><label class="checkbox"> <input type="checkbox" id="sports" value="Sports" v-model="person.interests"></td><td><label>Sports</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="painting" value="Painting" v-model="person.interests"></td><td><label>Painting</label></td><td></td>
+                                                <td><input type="checkbox" id="crochet" value="Crochet" v-model="person.interests"></td><td><label>Crochet</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="kayaking" value="Kayaking" v-model="person.interests"></td><td><label>Kayaking</label></td><td></td>
+                                                <td></td>
+                                            </tr>   
+                                        </table>
+                                    </div>
+
+
+
+                                    <br>
+                                    <h4>What are your skills?</h4>
+
+                                    <div class='registerInputTable registerButtonContainer'> 
+                                        <table>
+                                            <tr>
+                                                <td><input type="checkbox" value="Effective communication" v-model="person.skills"></td><td><label class="checkbox">Effective communication</label></td><td class="spacerColumn"></td>
+                                                <td><input type="checkbox" value="Teamwork" v-model="person.skills"></td><td><label class="checkbox">Teamwork</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" value="Problem-solving" v-model="person.skills"></td><td><label class="checkbox">Problem-solving</label></td><td></td>
+                                                <td><input type="checkbox" value="People skills" v-model="person.skills"></td><td><label class="checkbox">People skills</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" value="Time Management" v-model="person.skills"></td><td><label class="checkbox">Time Management</label></td><td></td>
+                                                <td><input type="checkbox"value="HTML & CSS" v-model="person.skills"></td><td><label class="checkbox">HTML & CSS</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" value="Brand management" v-model="person.skills"></td><td><label class="checkbox">Brand management</label></td><td></td>
+                                                <td><input type="checkbox" value="Data analysis" v-model="person.skills"></td><td><label class="checkbox">Data analysis</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" value="Sales" v-model="person.skills"></td><td><label class="checkbox">Sales</label></td><td></td>
+                                                <td><input type="checkbox" value="Creativity" v-model="person.skills"></td><td><label class="checkbox">Creativity</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" value="Planning" v-model="person.skills"></td><td><label class="checkbox">Planning</label></td><td></td>
+                                                <td><input type="checkbox" value="Public speaking" v-model="person.skills"></td><td><label class="checkbox">Public speaking</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" value="Photo editing" v-model="person.skills"></td><td><label class="checkbox">Photo editing</label></td><td></td>
+                                                <td><input type="checkbox" value="Technical writing" v-model="person.skills"></td><td><label class="checkbox">Technical writing</label></td><td></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" value="Critical thinking" v-model="person.skills"></td><td><label class="checkbox">Critical thinking</label></td><td></td>
+                                                <td></td>
+                                            </tr>   
+                                        </table>
+                                    </div>
+
+                                    <br>
+
+                                    <h4>How did you find out about the Otago Mentor Match programme?</h4>
+
+                                    <div class='registerInputTable registerButtonContainer'>
+                                        <table>
+                                            <tr><td><input v-model="person.findOut" type="radio" id="alumni" value="Alumni Office, University of Otago"></td><td><label for="alumni">Alumni Office, University of Otago</label></td></tr>
+                                            <tr><td><input v-model="person.findOut" type="radio" id="word" value="Word of Mouth"></td><td><label for="word">Word of Mouth</label></td></tr>
+                                            <tr><td><input v-model="person.findOut" type="radio" id="career" value="Career Development Centre"></td><td><label for="career">Career Development Centre</label></td></tr>
+                                            <tr><td><input v-model="person.findOut" type="radio" id="facebook" value="Facebook"></td><td><label for="facebook">Facebook</label></td></tr>
+                                            <tr><td><input v-model="person.findOut" type="radio" id="linkedIn" value="LinkedIn"></td><td><label for="linkedID">LinkedIn</label></td></tr>
+                                            <tr><td><input v-model="person.findOut"  type="radio" id="other2" value="Other"></td><td><label for="other2">Other</label></td></tr>
+                                        </table>
+                                    </div>
+
+                                    <br>
+                                    <div class='registerButtonContainer'>
+                                        <!-- Directs students to the Mentee-specific registration page -->
+                                        <button class='button registerButton' v-on:click.prevent="registerPerson('Mentee')">Continue as a student</button>
+                                        
+                                        <!-- Directs mentors to the Mentor-specific registration page -->
+                                        <button class='button registerButton' v-on:click.prevent="registerPerson('Mentor')">Continue as a mentor</button>     
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--standard footer-->
+                <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+
+            </section> 
+
+        </main>
+        <script type="module" src="js/person.js"></script>
+
+    </body>   
+</html>
+
+

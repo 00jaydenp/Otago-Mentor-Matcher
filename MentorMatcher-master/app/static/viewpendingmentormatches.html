@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Pending Mentor matches</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <!-- Adds the navigation bar to the top of the page -->
+            <navigation></navigation>
+
+            <div class='container'>
+                <div class='subContainer'>
+
+                    <h1>My Pending Matches</h1>
+                    <div>
+                        This page displays all of your pending mentee matches. If you approve a match, it will be pending until it gains administrator approval (please allow up to 2 business days for approval). 
+                        Once confirmed, the match will appear on the <a href='viewmentormatches.html' class='whiteBackground'>Confirmed Matches</a> page.
+                    </div>
+
+                    <br><br>
+
+                    <table v-show="pendingMatches.length > 0" class='adminTable'>
+                        <thead>
+                            <tr>
+                                <th>Mentee Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="match in pendingMatches" >
+                                <td>{{match.mentee.person.firstName}} {{match.mentee.person.lastName}} </td>
+                                <td><button id="profile" class="button" onclick="display('profileModal')">View Mentee</button> 
+                                    <div id="profileModal" class="modal" >
+                                        <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" > 
+                                            <div class="modal-content">
+                                                <button class="close" onclick="modal.style.display = 'none';">&times;</button>
+                                                <div class="modal-header"> 
+                                                    <h1 class="modal-title">Mentee Profile</h1> 
+                                                </div> 
+                                                <div class="modal-body">
+                                                    <img v-bind:src="match.mentee.person.profilePhoto" class="photoPreview">
+                                                    <h2>Personal contact details:</h2>
+                                                    <br>
+                                                    Name: {{match.mentee.person.firstName}} {{match.mentee.person.lastName}}
+                                                    <br><br>   
+                                                    City: {{match.mentee.person.city}} 
+                                                    <h2>About me:</h2>
+                                                    <br>
+                                                    Year of study: {{match.mentee.studyYear}}
+                                                    <br><br> 
+                                                    Bio: {{match.mentee.person.bio}}
+                                                    <br><br> 
+                                                    Skills: <p v-for="skills in match.mentee.person.skills">{{skill}}</p>
+                                                    <br><br>
+                                                    Interests: <p v-for="interest in match.mentee.person.interests">{{interest}}</p>
+                                                    <br><br>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                </td>  
+                                <td><button @click.prevent="approveMatch(match.matchID)" class='button adminTableButtonYellow'>Approve</button></td>
+                                <td><button @click.prevent="declineMatch(match.matchID)" class='adminTableButtonBlue'>Decline</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br><br>
+                </div>
+            </div>
+            <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+
+        </main>
+        <script>
+            var modal;
+
+            function display(x) {
+                modal = document.getElementById(x);
+                modal.style.display = "block";
+            }
+            ;
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            };</script>
+        <script type="module" src="js/mentor.js"></script>
+    </body>
+</html>

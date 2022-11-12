@@ -1,0 +1,121 @@
+@startuml
+
+
+hide circle
+skinparam linetype ortho
+
+entity "Person" as person {
+* personID
+--
+* email
+* password
+* firstName
+* lastName
+* role
+* interests
+  phone
+  mobile
+  bio
+  active
+  country
+  city
+  findOut
+  notes
+  profilePhoto
+}
+
+entity "Mentee" as mentee {
+* menteeID
+--
+* mentorID <<FK>>
+* personID <<FK>>
+* studyYear
+* motivation
+* randomMatch
+* industry
+}
+
+
+entity "Mentor" as mentor {
+* mentorID
+--
+* personID <<FK>>
+* careerHistory
+* preferredCommunication
+* mentoringPreference
+* linkedIn
+* capacity
+}
+
+entity "Match" as match {
+* matchID
+__
+* mentorID <<FK>>
+* menteeID <<FK>>
+* approved
+* matchDate
+}
+
+entity "Meeting" as meeting {
+* meetingID
+__
+* matchID <<FK>>
+* meetingTime
+* meetingLength
+* inPerson
+  notes
+}
+
+entity "Feedback" as feedback {
+* feedbackID
+__
+* personID <<FK>>
+  feedbackDate
+  feedbackRating
+  feedbackComment
+}
+
+entity "Undergraduate Experience" as undergrad {
+* undergradExperienceID
+__
+* personID <<FK>>
+* undergradCourse
+* undergradMajor
+* undergradInstitution
+* undergradYear
+}
+
+entity "Postgraduate Experience" as postgrad {
+* postgradExperienceID
+__
+* personID <<FK>>
+* postgradCourse
+* postgradMajor
+* postgradInstitution
+* postgradYear
+}
+
+entity "Work Experience" as workExperience {
+* mentorID
+__
+* title
+* organization
+* industry
+* startDate
+* endDate
+}
+
+mentee ||..|| person
+mentor ||..|| person
+undergrad }o.|| person
+postgrad }o.|| person
+feedback }o..|| person
+match |o..|| mentee
+match }o..|| mentor
+mentor |o.o{ mentee
+match ||.o{ meeting
+match ||.o{ meeting
+workExperience ||.|{ mentor
+
+
+@enduml
