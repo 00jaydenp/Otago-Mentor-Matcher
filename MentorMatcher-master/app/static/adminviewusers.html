@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<!-- Page for admin users to view a list of all of the users currently in the database -->
+<html>
+    <head>
+        <title>User and Match Management</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+
+    <body>
+        <main>
+            <!-- Add the navbar to the top of the page -->
+            <navigation></navigation>
+
+            <section>
+                <div class='container'>
+                    <div class='subContainer'>
+
+                        <h1>Active Users and Matches</h1>
+
+                        <div>
+                            <p>This page provides an overview of the current system users (Mentees, Mentors, and Admins), and active matches.
+                                Users will be notified if they are deleted from the system, and both the affected Mentor and Mentee will be notified of a terminated match.</p>
+                        </div>
+
+
+                        <!--A table to display all active Mentors-->
+                        <table class="adminTable">
+                            <thead>
+                            <h2 class="tableHeader">Mentors and Admins</h2>
+                            <tr>
+                                <th class='idColumn'>Mentor ID</th>
+                                <!--<th class='idColumn'>Person ID</th>-->
+                                <th>Name</th>
+                                <th>Email </th>
+                                <th>Role </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="mentor in mentors" >
+                                    <td class="idColumn">{{mentor.mentorID}}</td>
+                                    <!--<td class="idColumn">{{mentor.person.personID}}</td>-->
+                                    <td>{{mentor.person.firstName}} {{mentor.person.lastName}} </td>
+                                    <td>{{mentor.person.email}}</td>
+                                    <td> {{mentor.person.role}} </td>
+                                    <td class="buttonCell"><button @click.prevent="deleteUser(mentor)" class='adminTableButtonBlue'>Delete User</button></td>
+                                    <td class="buttonCell"><button v-if="mentor.person.role == 'Mentor'" @click.prevent="adminAccess(mentor)" class='adminTableButtonYellow'>Give Admin Access</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <!--A table to display all active Mentees-->
+                        <table class="adminTable">
+                            <thead>
+                            <h2 class="tableHeader">Mentees</h2>
+                            <tr>
+                                <th class='idColumn'>Mentee ID</th>
+                                <!--<th class='idColumn'>Person ID</th>-->
+                                <th>Name</th>
+                                <th> Email </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="mentee in mentees" >
+                                    <td class="idColumn">{{mentee.menteeID}}</td>
+                                    <!--<td class="idColumn">{{mentee.person.personID}}</td>-->
+                                    <td>{{mentee.person.firstName}} {{mentee.person.lastName}} </td>
+                                    <td>{{mentee.person.email}}</td>
+                                    <td class="buttonCell"><button @click.prevent="deleteUser(mentee)" class='adminTableButtonBlue'>Delete Mentee</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <!--A table to display all active Matches-->
+                        <table class="adminTable">
+                            <thead>
+                            <h2 class="tableHeader">Matches</h2>
+                            <tr>
+                                <th class='idColumn'>Match ID</th>
+                                <th class='idColumn'>Mentee ID</th>
+                                <th>Mentee Name</th>
+                                <th class='idColumn'>Mentor ID</th>
+                                <th>Mentor Name </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="match in confirmedMatches" >
+                                    <td class="idColumn">{{match.matchID}}</td>
+                                    <td class="idColumn">{{match.mentee.menteeID}}</td>
+                                    <td>{{match.mentee.person.firstName}} {{match.mentee.person.lastName}} </td>
+                                    <td class="idColumn">{{match.mentor.mentorID}}</td>
+                                    <td>{{match.mentor.person.firstName}} {{match.mentor.person.lastName}} </td>
+                                    <td class="buttonCell"><button @click.prevent="deleteMatch(match.matchID)" class='adminTableButtonBlue'>Delete Match</button></td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                        <br><br>
+                    </div>
+                </div>
+
+                <!--Generic footer-->
+                <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+            </section>
+        </main>
+        <script type="module" src="js/admin.js"></script>
+    </body>
+</html>

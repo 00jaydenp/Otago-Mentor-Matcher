@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+<!--Index page with a generic log in box for all users-->
+
+<html class="index_html">
+    <head>
+        <title>Otago Mentor Matcher</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stylesheet.css">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+    </head>
+
+    <body>
+        <main>
+            <section>
+                <div class='indexContainer'>
+                    <h1 class="indexTitle">Otago Mentor Matcher</h1>
+
+                    <div class='loginBox'>
+                        <div class='loginFormContainer'>
+                            <form @submit.prevent="signIn(user)">
+                                <div class="loginForm">
+                                    <label>Email: </label>
+                                    <input id="email"  type="email" v-model="user.email"  placeholder="Enter your email"><br>
+                                    <label>Password: </label>
+                                    <input id="password"  type="password" v-model="user.password"  placeholder="Enter your password"><br>
+                                </div>
+                                <input type='submit' class="button loginButton" value="Login">   
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class='whiteText'>
+                        <p>Don't have an account? Click <a href="register.html">here</a> to register<br>
+                    </div>
+                </div>
+            </section>
+            <br><br><br><br>
+            
+            <!-- Generic footer -->
+            <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+        </main>
+        <script type="module" src="js/signin.js"></script>
+    </body>
+</html>

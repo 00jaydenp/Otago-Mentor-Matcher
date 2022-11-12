@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!--A page for admin users to view requested matches & approve/decline them-->
+<html>
+    <head>
+        <title>Pending Matches</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+
+    <body>
+        <main>
+            <!-- Adds the nav bar to the top of the page -->
+            <navigation></navigation>
+
+            <section>
+                <div class='container'>
+                    <div class='subContainer'>
+                        <h1>Pending Matches</h1>
+
+                        <div>
+                            <p>Use the below table to view outstanding Mentor-Mentee match requests. A match request will not appear in the table unless already accepted by the Mentor.</p>
+                        </div>
+
+                        <br>
+
+                        <!-- Table: display all matches where approved (by mentor) = true, admins use this table for final match approval -->
+                        <table>
+                            <thead class='adminTable'>
+                                <tr>
+                                    <th>Match ID</th>
+                                    <th>Mentor ID</th>
+                                    <th>Mentor Name</th>
+                                    <th>Mentee ID</th>
+                                    <th>Mentee Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="match in adminPendingMatches" >
+                                    <td>{{match.matchID}}</td>
+                                    <td>{{match.mentorID}}</td>
+                                    <td>{{match.mentor.person.firstName}} {{match.mentor.person.lastName}} </td>
+                                    <td>{{match.menteeID}}</td>
+                                    <td>{{match.mentee.person.firstName}} {{match.mentee.person.lastName}} </td>
+
+                                    <td><button @click.prevent="adminApproveMatch(match.matchID)" class='button adminTableButtonYellow'>Approve Match</button></td>
+                                    <td><button @click.prevent="adminDeclineMatch(match.matchID)" class='adminTableButtonBlue'>Decline Match</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br><br>
+                    </div>
+                </div>  
+                <!--Generic footer-->
+                <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+            </section>   
+        </main>        
+        <script type="module" src="js/mentor.js"></script>
+    </body>
+</html>

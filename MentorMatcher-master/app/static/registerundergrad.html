@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+<!-- A registration page to collect data for the Undergraduate_experience table -->
+
+<html class='register_html'>
+    <head>
+        <title>Registration - Undergraduate Experience</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <section>
+                <div class='registerContainer'>
+                    <h1>Undergraduate Experience</h1>
+
+                    <div class='registerBox'>
+                        <div class='registerFormContainer'>
+                            <form>
+                                <div class='registerForm'>
+
+                                    <h4>If applicable, what is your undergraduate background?</h4>
+                                    <div id="duplicateUnderGrad">
+                                        <div class='registerButtonContainer'>
+                                            <label for="course" class="experienceLabel">Course: </label>
+                                            <select id="course" onchange="update()" v-model="undergrad.undergradCourse">
+                                                <option></option>
+                                                <option value="BAppSc">BAppSc</option>
+                                                <option value="BA">BA</option>
+                                                <option value="BBioMedSc">BBioMedSc</option>
+                                                <option value="BCom">BCom</option>
+                                                <option value="BDS">BDS</option>
+                                                <option value="BHealSc">BHealSc</option>
+                                                <option value="BMLSc">BMLSc</option>
+                                                <option value="BPA">BPA</option>
+                                                <option value="BPharm">BPharm</option>
+                                                <option value="BPharmSc">BPharmSc</option>
+                                                <option value="BPhty">BPhty</option>
+                                                <option value="BSc">BSc</option>
+                                                <option value="BSurv">BSurv</option>
+                                                <option value="BSW">BSW</option>
+                                                <option value="BTchg">BTchg</option>
+                                                <option value="BTheol">BTheol</option>
+                                                <option value="DipGlobalC">DipGlobalC</option>
+                                                <option value="DipLang">DipLang</option>
+                                                <option value="DipTheol">DipTheol</option>
+                                                <option value="LLB">LLB</option>
+                                                <option value="MBChB">MB ChB</option>
+                                                <option value="MusB">MusB</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+
+                                        <div class='registerButtonContainer'>
+                                            <label for="major" class="experienceLabel">Major: </label>
+                                            <select id="major" disabled="true" v-model="undergrad.undergradMajor">
+                                            </select>
+                                        </div>
+
+                                        <label>Institution: </label><input v-model="undergrad.undergradInstitution" class="loginInput"><br>
+                                        <label>Year of Graduation: </label><input v-model="undergrad.undergradYear" class="loginInput">   
+
+
+                                        <div class='registerButtonContainer'>
+                                            <!-- An extender button to allow users to add multiple undergraduate experiences -->
+                                            <button v-on:click.prevent="registerUndergrad()" class='extensionButton'>+ Add an undergraduate degree</button>
+                                        </div>
+
+                                        <!-- Table to display added undergrad experiences -->
+                                        <table v-show="undergraduates.length > 0" class="registerTable">
+                                            <tr>
+                                                <th>Course</th>
+                                                <th>Major</th>
+                                                <th>Institution</th>
+                                                <th>Year</th>
+                                            </tr>
+                                            <tr v-for="undergraduate in undergraduates">
+                                                <td>{{undergraduate.undergradCourse}}</td>
+                                                <td>{{undergraduate.undergradMajor}}</td>
+                                                <td>{{undergraduate.undergradInstitution}}</td>
+                                                <td>{{undergraduate.undergradYear}}</td>
+                                            </tr>
+                                        </table>
+
+                                        <hr class='dividerLine'>
+
+                                        <div class='registerButtonContainer'>
+                                            <button v-on:click.prevent="next()" class='button'>Next</button>
+                                        </div>            
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script type="module" src="js/undergrad.js"></script>
+
+        <!-- Expands Major selection options based on Course selection -->
+        <script>
+            var courseArr = {
+                BAppSc: ["Aggricultural Innovation",
+                    "Applied Geology",
+                    "Aquaculture and Fisheries",
+                    "Computational Modelling",
+                    "Consumer Food Science",
+                    "Data Science",
+                    "Energy Management",
+                    "Environmental Management",
+                    "Forensic Analytical Science",
+                    "Geographic Information Systems",
+                    "Molecular Biotechnology",
+                    "Physical Education, Activity and Health",
+                    "Software Engineering",
+                    "Sport and Exercise Nutrition"],
+                BA: ["Anthropology",
+                    "Asian Studies",
+                    "Biblical Studies",
+                    "Chinese",
+                    "Christian Thought and History",
+                    "Classics",
+                    "Communication Studies",
+                    "Computer Science",
+                    "Economics",
+                    "Education",
+                    "English",
+                    "English and Linguistics",
+                    "European Studies",
+                    "Film and Media Studies",
+                    "French",
+                    "Gender Studies",
+                    "Geography",
+                    "German",
+                    "Global Studies",
+                    "History",
+                    "Indigenous Development/He Kura Matanui",
+                    "Information Science",
+                    "Japanese",
+                    "Language and Linguistics",
+                    "Linguistics",
+                    "MÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½ori Studies",
+                    "Mathematics",
+                    "Music",
+                    "Pacific Islands Studies",
+                    "Philosophy",
+                    "Philosophy, Politics and Economics",
+                    "Politics",
+                    "Psychology",
+                    "Religious Studies",
+                    "Sociology",
+                    "Spanish",
+                    "Sport Development and Management",
+                    "Statistics",
+                    "Theatre Studies",
+                    "Tourism, Languages and Cultures"],
+                BBioMedSc: ["Drugs and Human Health",
+                    "Functional Human Biology",
+                    "Infection and Immunity",
+                    "Molecular Basis of Health and Disease",
+                    "Nutrition and Metabolism in Human Health",
+                    "Reproduction, Genetics and Development"],
+                BCom: ["Accounting",
+                    "Economics",
+                    "Finance",
+                    "Human Resource Management",
+                    "Information Science",
+                    "International Business",
+                    "Management",
+                    "Marketing",
+                    "Philosophy, Politics and Economics",
+                    "Tourism"],
+                BDS: ["Dental Surgery"],
+                BHealSc: ["Community Health Care",
+                    "Maori Health",
+                    "Pacific and Global Health",
+                    "Public Health"],
+                BMLSc: ["Medical Laboratory Science"],
+                BPA: ["Performing Arts"],
+                BPharmSc: ["Pharmaceutical Science"],
+                BPharm: ["Pharmacy"],
+                BPhty: ["Physiotherapy"],
+                BSc: ["Anatomy",
+                    "Biochemistry",
+                    "Botany",
+                    "Chemistry",
+                    "Computer Science",
+                    "Ecology",
+                    "Economics",
+                    "Electronics",
+                    "Energy Science and Technology",
+                    "Exercise and Sport Science",
+                    "Food Science",
+                    "Genetics",
+                    "Geography",
+                    "Geology",
+                    "Human Nutrition",
+                    "Information Science",
+                    "Land Planning and Development",
+                    "Mathematics",
+                    "Marine Science",
+                    "Microbiology",
+                    "Neuroscience",
+                    "Oceanography",
+                    "Pharmacology",
+                    "Physics",
+                    "Physiology",
+                    "Plant Biotechnology",
+                    "Psychology",
+                    "Sport Development and Management",
+                    "Statistics",
+                    "Surveying Measurement",
+                    "Zoology"],
+                BSurv: ["Surveying"],
+                BSW: ["Social Work"],
+                BTchg: ["Teaching"],
+                BTheol: ["Biblical Studies",
+                    "Christian Thought and History",
+                    "Pastoral Studies"],
+                DipGlobalC: ["Global Cultures"],
+                DipLang: ["Chinese",
+                    "French",
+                    "German",
+                    "Japanese",
+                    "Spanish"],
+                DipTheol: ["Biblical Studies",
+                    "Christian Thought and History",
+                    "Pastoral Studies"],
+                LLB: ["Law"],
+                MBChB: [" Medicine and Surgery"],
+                MusB: ["Music"],
+                Other: ["Other"]
+            };
+            function update() {
+                var major = document.getElementById('major');
+                major.innerHTML = "";
+                var courses = document.getElementById('course');
+                var course = courses.options[courses.selectedIndex].value;
+                var majorArr = courseArr[course];
+                major.disabled = false;
+                for (i = 0; i < majorArr.length; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = majorArr[i];
+                    opt.innerHTML = majorArr[i];
+                    major.appendChild(opt);
+                }
+            }
+        </script>
+        <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+    </body>
+</html>

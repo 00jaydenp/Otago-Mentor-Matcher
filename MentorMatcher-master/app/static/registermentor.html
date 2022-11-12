@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+
+<!-- Student/Mentor-specific registration page that collects data for the Mentor table -->
+<html class='register_html'>
+    <head>
+        <title>Mentor Registration</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <section>
+                <div class='registerContainer'>
+                    <h1>Mentor Registration</h1>
+
+                    <div class='registerBox'>
+                        <div class='registerFormContainer'>
+
+                            <form @submit.prevent="registerMentor()">
+
+                                <div class='registerForm'>
+
+                                    <h2>About You</h2>
+                                    <!--<label>In which industry do you work? Select all that Apply</label><br>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="accounting" value="Accounting">
+                                                <label for="accounting">Accounting</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="legal" value="Legal Services">
+                                                <label for="legal">Legal Services</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="agriculture" value="Agriculture/Horticulture/Viticulture">
+                                                <label for="agriculture">Agriculture/Horticulture/Viticulture</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="local" value="Local Government">
+                                                <label for="local">Local Government</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="computing" value="Computing/IT/Communications">
+                                                <label for="computing">Computing/IT/Communications</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="management" value="Management and Consulting">
+                                                <label for="management">Management and Consulting</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="cultural" value="Cultural/Sport and Recreational Services">
+                                                <label for="cultural">Cultural/Sport and Recreational Services</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="manufacturing" value="Manufacturing">
+                                                <label for="manufacturing">Manufacturing</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="education" value="Education">
+                                                <label for="education">Education</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="marketing" value="Marketing">
+                                                <label for="marketing">Marketing</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="electricity" value="Electricity/Gas and Water Supply">
+                                                <label for="electricity">Electricity/Gas and Water Supply</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="environmental" value="Environmental">
+                                                <label for="environmental">Environmental</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="mining" value="Mining and Construction">
+                                                <label for="mining">Mining and Construction</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="media" value="Media/Publishing and Entertainment">
+                                                <label for="media">Media/Publishing and Entertainment</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="finance" value="Finance and Insurance">
+                                                <label for="finance">Finance and Insurance</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="visual" value="Visual Arts and Design">
+                                                <label for="visual">Visual Arts and Design</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 
+                                                <input type="checkbox" id="government" value="Government and Defence">
+                                                <label for="government">Government and Defense</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="wholesale" value="Wholesale Trade">
+                                                <label for="wholesale">Wholesale Trade</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="health" value="Health and Community Services">
+                                                <label for="health">Health and Community Services</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="retail" value="Retail">
+                                                <label for="retail">Retail</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="hospitality" value="Hospitality and Tourism">
+                                                <label for="hospitality">Hospitality and Tourism</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="other" value="Other">
+                                                <label for="other">Other</label>
+                                            </td>
+                                        </tr>
+                                    </table>-->
+
+
+                                    <h4>What motivated you to join the Mentor match program?</h4>
+                                    <textarea style="resize: none;"></textarea>
+
+                                    <h4>What is your preferred method of communication with mentees?</h4>
+
+                                    <div class='registerInputTable registerButtonContainer'>
+                                        <table>
+                                            <tr><td><input v-model="mentor.preferredCommunication" type="radio" id="face" value="Face to Face"></td><td><label for="face">Face to Face (Dunedin Only)</label></td></tr>
+                                            <tr><td><input v-model="mentor.preferredCommunication" type="radio" id="skype" value="Skype"></td><td><label for="skype">Skype</label></td></tr>
+                                            <tr><td><input v-model="mentor.preferredCommunication" type="radio" id="zoom" value="Zoom"></td><td><label for="zoom">Zoom</label></td></tr>
+                                            <tr><td><input v-model="mentor.preferredCommunication" type="radio" id="phone" value="Phone"></td><td><label for="phone">Phone</label></td></tr>
+                                            <tr><td><input v-model="mentor.preferredCommunication" type="radio" id="email" value="Email"></td><td><label for="email">Email</label></td></tr>
+                                            <tr><td><input v-model="mentor.preferredCommunication" type="radio" id="messenger" value="Facebook messenger/ video"></td><td><label for="messenger">Facebook messenger/ video</label></td></tr>
+                                            <tr><td><input v-model="mentor.preferredCommunication"  type="radio" id="other3" value="Other"></td><td><label for="other2">Other</label></td></tr>
+                                        </table>
+                                    </div>
+
+
+                                    <h4>What is your mentoring capacity?</h4>
+                                    <div class='registerP'>
+                                        <p>I.e., what is the maximum number of students you are able to mentor at once?</p>
+                                    </div>
+                                    <div class='registerPhotoContainer'>
+                                        <select v-model="mentor.capacity">
+                                            <option></option>
+                                            <option value="1"> 1 </option>
+                                            <option value="2"> 2 </option>
+                                            <option value="3"> 3 </option>
+                                            <option value="4"> 4 </option>
+                                            <option value="5"> 5 </option>
+                                        </select>
+                                    </div>
+                                    <br>
+
+                                    <h4>Mentoring Preferences</h4>
+
+                                    <div class='registerP'>
+                                        <p>Please indicate which of the following you would prefer to help students with:</p>
+                                    </div>
+
+                                    <div class='registerInputTable registerButtonContainer industryTable'> 
+                                        <table>
+                                            <tr>
+                                                <td><input type="checkbox" id="cv" value="CV and Cover Letter checking" v-model="mentor.mentoringPreference"></td><td><label for="cv">CV and Cover Letter checking</label></td>
+                                                <td><input type="checkbox" id="referrals" value="Referrals to contacts within professional network" v-model="mentor.mentoringPreference"></td><td><label for="referrals">Referrals to contacts within professional network</label></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="networking" value="Invitation to industry networking events" v-model="mentor.mentoringPreference"></td><td><label for="networking">Invitation to industry networking events</label></td>
+                                                <td><input type="checkbox" id="job" value="Job search information" v-model="mentor.mentoringPreference"></td><td><label for="job">Job search information</label></td>
+                                            </tr><tr>
+                                                <td><input type="checkbox" id="interview" value="Interview practice" v-model="mentor.mentoringPreference"></td><td><label for="interview">Interview practice</label></td>
+                                                <td><input type="checkbox" id="other" value="Other" v-model="mentor.mentoringPreference"></td><td><label for="other">Other</label></td>
+                                            </tr>
+                                        </table>            
+                                    </div><br>
+
+                                    <div class='registerButtonContainer'>
+                                        <button type="submit" class='button'>Next</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!--standard footer-->
+                <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+            </section>
+
+            <script type="module" src="js/mentor.js"></script>
+        </main>
+    </body>
+</html>

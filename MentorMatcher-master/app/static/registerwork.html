@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+<!-- A registration page to collect data for the Undergraduate_experience table -->
+
+<html class='register_html'>
+    <head>
+        <title>Registration - Work Experience</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <section>
+                <div class='registerContainer'>
+                    <h1>Work Experience</h1>
+
+                    <div class='registerBox'>
+                        <div class='registerFormContainer'>
+
+                            <form>
+
+                                <div class='registerForm'>
+                                    <h4>Please add your previous work experience(s):</h4> 
+
+                                    <label>Job title: </label><input v-model="work.title"  class="loginInput"><br>
+                                    <label>Organization: </label><input v-model="work.organisation" class="loginInput"><br>
+                                    <label>Industry: </label><input v-model="work.industry" class="loginInput"><br>
+                                    <label>Start Date: </label><input type="date" v-model="work.startDate" class="loginInput"><br>
+                                    <label>End Date: </label><input type="date" v-model="work.endDate" class="loginInput">   
+
+
+
+                                    <div class='registerButtonContainer'>  
+                                        <!-- An extender button to allow users to add multiple undergraduate experiences -->
+                                        <button v-on:click.prevent="registerWork()" class='extensionButton'>+ Add Work Experience</button>
+                                    </div>
+
+                                    <table v-show="works.length > 0" class="registerTable">
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Organization</th>
+                                            <th>Industry</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                        </tr>
+                                        <tr v-for="workExp in works">
+                                            <td>{{workExp.title}}</td>
+                                            <td>{{workExp.organisation}}</td>
+                                            <td>{{workExp.industry}}</td>
+                                            <td>{{workExp.startDate}}</td>
+                                            <td>{{workExp.endDate}}</td>
+                                        </tr>
+                                    </table>
+
+                                    <hr class='dividerLine'>
+
+                                    <div class='registerButtonContainer'>
+                                        <button v-on:click.prevent="next()" class='button'>Next</button>
+                                    </div>           
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </main>
+        <script type="module" src="js/work.js"></script>
+        <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+    </body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+<!-- A registration page to collect data for the Postgraduate_experience table -->
+<html class='register_html'>
+    <head>
+        <title>Registration - Postgraduate Experience</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+
+        <main>
+            <section>
+                <div class='registerContainer'>
+                    <h1>Postgraduate Experience</h1>
+
+                    <div class='registerBox'>
+                        <div class='registerFormContainer'>
+                            <form>
+                                <div class='registerForm'>
+
+                                    <h4>If applicable, what is your postgraduate background?</h4>
+                                    <div>
+                                        <div class='registerButtonContainer'>
+                                            <label for="course" class="experienceLabel">Course: </label>
+                                            <select id="course" onchange="update()" v-model="postgrad.postgradCourse">
+                                                <option></option>
+                                                <option value="Hons">Honours</option>
+                                                <option value="DipGrad">Diploma for Graduates</option>
+                                                <option value="GDip">Graduate Diploma</option>
+                                                <option value="PGCert">Postgraduate Certificate</option>
+                                                <option value="PGDip">Postgraduate Diploma</option> 
+                                                <option value="Masters">Masters</option>
+                                                <option value="Doctor">Doctorate</option>
+                                            </select>
+
+                                            <br>
+                                        </div>
+
+                                        <div class='registerButtonContainer'>
+                                            <label for="postgrad" class="experienceLabel">Major: </label>
+                                            <select id="postgrad" disabled="true" v-model="postgrad.postgradMajor">
+                                            </select>
+                                        </div>
+                                        <br>
+
+                                        <label>Institution: </label><input v-model="postgrad.postgradInstitution" class="loginInput"><br>
+                                        <label>Year of Graduation: </label><input v-model="postgrad.postgradYear" class="loginInput">   
+
+                                    </div>
+
+                                    <div class='registerButtonContainer'>
+                                        <!-- An extender button to allow users to add multiple postgraduate experiences -->
+                                        <button v-on:click.prevent="registerPostgrad()" class='extensionButton'>+ Add a postgraduate degree</button>
+                                    </div>
+
+                                    <!-- Table to display added postgrad experiences -->
+                                    <table v-show="postgraduates.length > 0" class="registerTable">
+                                        <tr>
+                                            <th>Course</th>
+                                            <th>Major</th>
+                                            <th>Institution</th>
+                                            <th>Year</th>
+                                        </tr>
+                                        <tr v-for="postgraduate in postgraduates">
+                                            <td>{{postgraduate.postgradCourse}}</td>
+                                            <td>{{postgraduate.postgradMajor}}</td>
+                                            <td>{{postgraduate.postgradInstitution}}</td>
+                                            <td>{{postgraduate.postgradYear}}</td>
+                                        </tr>
+                                    </table>
+
+                                    <hr class='dividerLine'>
+
+                                    <div class='registerButtonContainer'>
+                                        <button v-on:click.prevent="next()" class='button'>Next</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Expands Major selection options based on Course selection -->
+        <script type="module" src="js/postgrad.js"></script>
+        <script>
+            var qualArr = {
+                Hons: ["Bachelor of Arts",
+                    "Bachelor of Music",
+                    "Bachelor of Social Work",
+                    "Bachelor of Commerce",
+                    "Bachelor of Biomedical Sciences",
+                    "Bachelor of Radiation Therapy",
+                    "Bachelor of Medical Science",
+                    "Bachelor of Pharmacy",
+                    "Bachelor of Physiotherapy",
+                    "Bachelor of Applied Science",
+                    "Bachelor of Science",
+                    "Bachelor of Surveying",
+                    "Bachelor of Theology with Honours"],
+                DipGrad: ["Diploma for Graduates"],
+                GDip: ["Second Language Teaching",
+                    "Bioethics and Health Law"],
+                PGCert: ["Children's Issues",
+                    "Business Research",
+                    "Digital Health",
+                    "Executive Management",
+                    "Education and Learning",
+                    "Health Sciences",
+                    "Medical Technology",
+                    "Higher Education",
+                    "Aeromedical Retrieval and Transport",
+                    "Civil Aviation Medicine",
+                    "Clinician-Performed Ultrasound",
+                    "General Practice",
+                    "Musculoskeletal Medicine",
+                    "Occupational Medicine",
+                    "Primary Health Care",
+                    "Public Health",
+                    "Rehabilitation",
+                    "Rural and Provincial Hospital Practice",
+                    "Travel Medicine",
+                    "Women's Health",
+                    "Pharmacist Prescribing",
+                    "Pharmacy",
+                    "Physiotherapy",
+                    "Applied Science",
+                    "Science Communication",
+                    "Chaplaincy "],
+                PGDip: ["Arts Subjects",
+                    "Child-Centred Practice",
+                    "Music",
+                    "Social Welfare",
+                    "Business Administration",
+                    "Business Research",
+                    "Commerce",
+                    "Digital Health",
+                    "Executive Management",
+                    "Clinical Dental Technology",
+                    "Clinical Dentistry",
+                    "Community Dentistry",
+                    "Dental Technology",
+                    "Dental Therapy",
+                    "Education and Learning",
+                    "Bioethics and Health Law",
+                    "Bioethics and Health Law",
+                    "Health Management",
+                    "Health Sciences",
+                    "Medical Laboratory Science",
+                    "Medical Technology",
+                    "Sport and Exercise Medicine",
+                    "Higher Education",
+                    "Aeromedical Retrieval and Transport",
+                    "Child Health",
+                    "General Practice",
+                    "Musculoskeletal Medicine",
+                    "Obstetrics and Medical Gynaecology",
+                    "Occupational Medicine",
+                    "Ophthalmic Basic Sciences",
+                    "Primary Health Care",
+                    "Public Health",
+                    "Rehabilitation",
+                    "Rural and Provincial Hospital Practice",
+                    "Surgical Anatomy",
+                    "Travel Medicine",
+                    "Clinical Pharmacy",
+                    "Pharmacy",
+                    "Sport Development and Management",
+                    "Physiotherapy",
+                    "Applied Science",
+                    "Applied Statistics",
+                    "Clinical Psychology",
+                    "Science",
+                    "Science Communication",
+                    "Wildlife Management",
+                    "Chaplaincy",
+                    "Faith-based Leadership and Management",
+                    "Ministry",
+                    "Theology"],
+                Masters: ["Archaeological Practice",
+                    "Arts",
+                    "Fine Arts",
+                    "Indigenous Studies",
+                    "International Development and Planning",
+                    "International Studies",
+                    "Music",
+                    "Peace and Conflict Studies",
+                    "Planning ",
+                    "Politics",
+                    "Social and Community Work",
+                    "Social Work",
+                    "Accounting and Finance",
+                    "Business Administration",
+                    "Business Data Science",
+                    "Commerce",
+                    "Economics",
+                    "Entrepreneurship",
+                    "Finance",
+                    "International Business",
+                    "Marketing",
+                    "Sustainable Business",
+                    "Tourism",
+                    "Community Dentistry",
+                    "Dental Surgery",
+                    "Dental Technology",
+                    "Dentistry",
+                    "Oral Health",
+                    "Education and Learning",
+                    "Teaching and Learning",
+                    "Advanced Nursing Practice",
+                    "Bioethics and Health Law",
+                    "Biomedical Sciences",
+                    "Health Sciences",
+                    "Medical Laboratory Science",
+                    "Nursing Science",
+                    "Higher Education",
+                    "Laws",
+                    "Aeromedical Retrieval and Transport",
+                    "Aviation Medicine",
+                    "General Practice",
+                    "Medical Science",
+                    "Occupational Medicine",
+                    "Ophthalmology",
+                    "Primary Health Care",
+                    "Public Health",
+                    "Travel Medicine",
+                    "Clinical Pharmacy",
+                    "Pharmacy",
+                    "Sport Development and Management",
+                    "Physiotherapy",
+                    "Applied Science",
+                    "Dietetics",
+                    "Science",
+                    "Science Communication",
+                    "Wildlife Management",
+                    "Surveying",
+                    "Chaplaincy",
+                    "Faith-based Leadership and Management",
+                    "Ministry",
+                    "Theology"],
+                Doctor: ["Literature",
+                    "Music",
+                    "Musical Arts",
+                    "Philosophy",
+                    "Business Administration",
+                    "Commerce",
+                    "Clinical Dentistry",
+                    "Dental Science",
+                    "Education",
+                    "Laws",
+                    "Medicine",
+                    "Science"]
+            };
+
+            function update() {
+                var postgrad = document.getElementById('postgrad');
+                postgrad.innerHTML = "";
+                var courses = document.getElementById('course');
+                var course = courses.options[courses.selectedIndex].value;
+                var majorArr = qualArr[course];
+                postgrad.disabled = false;
+                for (i = 0; i < majorArr.length; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = majorArr[i];
+                    opt.innerHTML = majorArr[i];
+                    postgrad.appendChild(opt);
+                }
+            }
+        </script>
+        <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+
+    </body>
+</html>

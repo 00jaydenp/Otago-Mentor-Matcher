@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>View Mentors</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <main>
+            <navigation></navigation>
+            <section>
+                <div class='container'>
+                    <div class='subContainerCenter'>
+                        <h1> Find a Mentor </h1>
+                        <p> Use this page to find a mentor and request a match. You can only request to match with one mentor at any give time.</p>
+
+                        <div class= 'filters'>
+                            <h2>Filters</h2>
+
+
+                            <div class='mentorTable'>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Mentor</th>
+                                            <th>Job </th>
+                                            <th>Bio</th>
+                                            <th>Skills </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="mentor in mentors" >
+                                            <td><image v-bind:src="mentor.person.profilePhoto" class="photoPreview" style="width: 100px; height: 100px;"></td>
+                                            <td>{{mentor.person.firstName}} {{mentor.person.lastName}}</td>
+                                            <td><div v-if="mentor.currentTitle != null">{{mentor.currentTitle}} at {{mentor.currentOrganisation}}</div></td>
+                                            <td>{{mentor.person.bio}}</td>
+                                            <td><div v-for="skill in mentor.person.skills">{{skill}}</div></td>
+                                            <td><button @click.prevent="selectMentor(mentor)">View Mentor</button></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <br><br>
+            <br>
+            <iframe src="footer.html" onload="this.before((this.contentDocument.body || this.contentDocument).children[0]);this.remove()"></iframe>
+
+        </main>
+        <script type="module" src="js/mentor.js"></script>
+    </body>
+</html>

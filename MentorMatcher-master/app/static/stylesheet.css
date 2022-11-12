@@ -1,0 +1,788 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 6/09/2022, 11:38:54 pm
+    Author     : David
+*/
+
+
+/*  CONTENTS
+--------------------------------------------------
+1:  Fonts & General Styling
+2:  Navigation Bar
+3:  Index/log in page
+4:  Home page
+5:  Register pages
+6:  Footer
+7:  Tables
+8:  Mobile Styling
+
+
+Colour styling:
+#fcc404 = Otago Uni Yellow
+#0c448c = Otago Uni Blue
+
+
+-----------------------------------------------
+    1: Fonts & General Styling
+----------------------------------------------- */
+/* custom Otago Uni font - 'Amsi Pro' */
+@font-face {
+    font-family: 'Amsi';
+    src:
+        url('fontsfree-net-amsiprocond-black-webfont.woff') format('woff'),
+        url('fontsfree-net-amsiprocond-black-webfont.woff2') format('woff2')
+}
+
+/* Imported fonts - variations of 'Open Sans' */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+html {
+    font-family: "Open Sans Light", sans-serif;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+}
+
+/* used at the top of each page in the header */
+h1 {
+    font-family: "Amsi";
+    color: #fcc404;
+    font-size: 300%;
+}
+
+/* section headers */
+h2 {
+    padding-top: 20px;
+    font-family: "Amsi";
+    color: #0c448c;
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+
+h4 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.boldText {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+}
+
+
+p {
+    font-size: 120%;
+}
+
+.whiteText {
+    color: white;
+}
+
+
+/* button styling */
+.button {
+    background-color: #fcc404;
+    font-family: "Open Sans", sans-serif;
+    color: white;
+    border: 2px solid #d49f02;
+    border-radius: 60px;
+    padding: 10px;
+    text-align: center;
+}
+
+.extensionButton {
+    background-color: #0c448c;
+    font-family: "Open Sans", sans-serif;
+    color: white;
+    border: 2px solid #032c6e;
+    border-radius: 60px;
+    padding: 10px;
+    margin: 15px 0px 0px 0px;
+    text-align: center;
+}
+
+.extensionButton:hover {
+    background-color: #032c6e;
+}
+
+.adminButton {
+    width: 30%;
+    min-width: 250px;
+    margin-bottom: 20px;
+    font-family: "Amsi";
+    color: white;
+    text-align: center;
+    font-size: 150%;
+    align-self: center;
+}
+
+.adminButtons {
+    margin: 50px 0px 50px 0px;
+}
+
+.adminTableButtonYellow {
+    border-radius: 20px;
+}
+
+.adminTableButtonBlue {
+    border-radius: 20px;
+    background-color: #0f5aba;
+    font-family: "Open Sans", sans-serif;
+    color: white;
+    border: 2px solid #032c6e;
+    padding: 10px;
+    text-align: center;
+}
+
+.adminTableButtonBlue:hover {
+    background-color: #0c448c;
+}
+
+.button:hover {
+    background-color: #f5b802;
+}
+
+.comingSoonButton {
+    background-color: lightgray;
+    border-color: grey;
+}
+
+.comingSoonButton:hover {
+    background-color: lightgrey;
+}
+
+
+/* input fields */
+input {
+    margin: 5px 0; 
+    width: 70%;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid;
+}
+
+input [type=select] {
+    padding: 10px;
+    border-radius: 30px;
+}
+
+textArea {
+    margin: 5px 0; 
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    border-radius: 25px;
+    border: 1px solid;
+    height: 50px;
+    font-family: "Open Sans Light", sans-serif;
+}
+
+.checkbox {
+    width: 20px;
+}
+
+a {
+    color: white;
+}
+
+a.whiteBackground {
+    color: blue;
+}
+
+a:visited {
+    color: lightblue;
+}
+
+a.whiteBackground:visited {
+    color: purple;
+}
+
+.photoUpload {
+    border: none;
+    width: fit-content;
+    text-align: center;
+}
+
+.photoPreview {
+    width: 200px;
+    height: 200px;
+    border: 1px dashed;
+    object-fit: cover;
+
+}
+
+.topBar {
+    background: #00508F url("background.jpeg") no-repeat fixed;
+}
+
+.topBarText {
+    /*margin-bottom: -20px;*/
+    /*font-size: 80%;*/
+    margin: auto;
+}
+
+.dividerLine {
+    margin: 30px 0px 30px 0px;
+}
+
+.lables, .content{
+    display: inline-block;
+    width: 20%;
+    padding:0 20px;
+}
+
+.account{
+    padding: 20px;
+}
+
+
+/*-----------------------------------------------
+  2: Navigation Bar
+----------------------------------------------- */
+.nav {
+    background-color: #0c448c;
+    padding: 5px 20px 5px 20px;
+}
+
+nav a {
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    padding: 5px 20px 5px 20px;
+    border-right: lightsteelblue 1px solid;
+}
+
+nav a:visited {
+    color: white;
+}
+
+/* Change the color of links on hover */
+nav a:hover {
+    background-color: lightgrey;
+    color: black;
+}
+
+.navButton {
+    margin-left: -10px;
+    border-right: none;
+}
+
+/*-----------------------------------------------
+    3: Index / Log In Page
+----------------------------------------------- */
+.index_html {
+    background: #00508F url("background.jpeg") no-repeat fixed;
+    margin: auto;
+}
+
+.indexTitle {
+    font-size: 800%;
+}
+
+.loginBox {
+    padding: 25px;
+    min-width: 600px;
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.loginFormContainer {
+    align-self: center;
+    width: 80%
+}
+
+.loginForm {
+    text-align: right;
+}
+
+.test {
+    align-self: center;
+}
+
+.indexContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginButton {
+    width: 30%;
+    align-self: center;
+    margin-top: 20px;
+}
+
+
+/*-----------------------------------------------
+    4: Home Page
+----------------------------------------------- */
+ul {
+    list-style-type: circle;
+    text-align: left;
+    font-size: 120%;
+
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.subContainer {
+    align-self: center;
+    width: 70%;
+    text-align: justify;
+}
+
+.subContainerCenter {
+    align-self: center;
+    width: 70%;
+    text-align: center;
+}
+
+.homeSubHeading {
+    font-size: 200%;
+    text-align: left;
+}
+
+.quote {
+    padding: 15px;
+    margin: 30px 0px 30px 0px;
+    display: inline-block;
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.homeImage {
+    max-width: 100%;
+    height: auto;
+}
+
+/*-----------------------------------------------
+    5: Register pages
+----------------------------------------------- */
+.register_html {
+    background: #00508F url("background.jpeg") no-repeat fixed;
+    margin: auto;
+}
+
+.registerContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectRegTitle {
+    padding-top: 300px;
+}
+
+.registerBox {
+    padding: 25px;
+    width: 55%;
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.registerFormContainer {
+    align-self: center;
+    width: 80%;
+}
+
+.registerForm {
+    text-align: right;
+    resize: none;
+}
+
+.registerButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerButton {
+    font-size: 110%;
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+.registerPhotoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerP {
+    font-size: 80%;
+    margin-top: -10px;
+    text-align: center;
+}
+
+.yearSelector {
+    float: left;
+}
+
+.experienceLabel {
+    margin-right: 10px;
+}
+
+/*-----------------------------------------------
+    6: Footer
+----------------------------------------------- */
+.footer {
+    background-color: #0c448c;
+    min-height: 200px;
+    width: 100%;
+    font-size: 80%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-between;
+    padding-top: 40px;
+}
+
+.footerBox1 {
+    order: 1;
+    width: 25%;
+    min-width: 300px;
+}
+
+.footerBox2 {
+    order: 2;
+    width: 25%;
+    padding-top: 10px;
+    min-width: 300px;
+}
+
+.footerBox3 {
+    order: 3;
+    width: 25%;
+    min-width: 300px;
+}
+
+.footerBox4 {
+    order: 4;
+    width: 25%;
+    min-width: 300px;
+}
+
+.otagoUniLogo {
+    height: 90px;
+    margin: 30px 0px 30px 0px;
+}
+
+.footer-basic {
+    margin-top: 150px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #0c448c;
+    color: white;
+}
+
+.footer-basic ul {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.footer-basic li {
+    padding: 0 10px;
+    display: inline;
+}
+
+.footer-basic ul a {
+    color:inherit;
+    text-decoration:none;
+    opacity:0.8;
+}
+
+.list-inline {
+    margin-left: 120px;
+}
+
+.footer-basic ul a:hover {
+    opacity: 1;
+}
+
+.footer-basic .social {
+    text-align: center;
+    width: 200px;
+    margin: auto;
+}
+
+.footer-basic .social > a {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    text-align: center;
+    padding: 5px;
+    margin: 0 8px;
+    color: inherit;
+    opacity: 0.75;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-basic .social > a:hover {
+    opacity: 0.9;
+}
+
+.footer-basic .copyright {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 0;
+}
+
+.linkedinLogo {
+    margin-right: 10px;
+}
+
+/*-----------------------------------------------------*/
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 50px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    overflow-y: auto;
+}
+
+.modal-body{
+    height: 420px;
+    overflow-y: auto;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*-----------------------------------------------
+    7: Table styling
+----------------------------------------------- */
+.tableHeader {
+    margin-bottom: 10px;
+}
+
+th {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    background-color: #fcc404;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    /*border-bottom: 0.5px black solid;*/
+}
+
+/*.mentorTable {
+  border-collapse: collapse;
+  border: 1px solid #cecfd5;
+}*/
+
+.adminTable {
+    width: 100%;
+}
+
+.adminTable tr:nth-child(even) {
+    background-color: #f0efed;
+}
+
+.buttonCell {
+    background-color: white;
+    width: 15%;
+}
+
+.idColumn {
+    width: 5%;
+}
+
+.adminTable td {
+    padding: 10px 15px;
+}
+
+.registerInputTable {
+    text-align: left;
+    align-self: center;
+}
+
+.registerTable {
+    width: 100%;
+}
+
+.registerTable th {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+}
+
+.spacerColumn {
+    width: 20px;
+}
+
+/*-----------------------------------------------
+    8: Mobile Styling
+----------------------------------------------- */
+@media only screen and (max-width: 414px) {
+    .indexTitle {
+        font-size: 350%;
+    }
+
+    .loginBox {
+        min-width: 200px;
+    }
+
+    .loginForm {
+        text-align: left;
+    }
+
+    .loginInput {
+        width: 90%;
+    }
+
+    .footerBox1, .footerBox2, .footerBox3, .footerBox4 {
+        padding-left: 60px;
+    }
+
+    .registerInput {
+        width: 120%;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .registerButtonContainer {
+        flex-direction: column;
+    }
+
+    .registerButton {
+        margin-right: 0px;
+        margin-bottom: 10px
+    }
+
+    .registerForm {
+        text-align: left;
+    }
+
+    .photoUploadLabel {
+        display: none;
+    }
+
+    .photoUpload {
+        margin-left: 60px;
+    }
+
+    .cityLabel {
+        margin-right: 50px;
+    } 
+
+    .yearSelector {
+        text-align: center;
+    }
+
+    .industryTable {
+        font-size: 60%;
+    }
+
+    .headerResize {
+        font-size: 250%;
+        text-align: left;
+    }
+
+    .topBarText {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media only screen and (max-width: 899px) {
+    nav a {
+        margin: 0px;
+        padding: 0px 10px 0px 0px;
+    } 
+
+    .adminTable {
+        font-size: 70%;
+    }
+
+    .adminTable td {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .adminTableButtonBlue {
+        font-size: 60%;
+        padding: 2px;
+        border-radius: 10px;
+    }
+
+    .idColumn {
+        display:none;
+    }
+
+    th {
+        padding: 5px;
+    }
+}
+
+
+
